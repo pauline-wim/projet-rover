@@ -17,6 +17,7 @@ const rover = {
     direction: "N",
     x: 0,
     y: 0,
+    travelLog: [],
 }
 
 function turnLeft(rover) {
@@ -54,6 +55,7 @@ function turnRight(rover) {
 }
 
 function moveForward(rover) {
+    rover.travelLog.push({y: rover.y, x: rover.x});
     switch (rover.direction) {
         case "N":
             rover.x -= 1;
@@ -68,17 +70,26 @@ function moveForward(rover) {
             rover.y -= 1;
             break;
     }
-    console.log(`y: ${rover.y}, x: ${rover.x}`)
+    console.log(`y: ${rover.y}, x: ${rover.x}`);
 }
 
-turnLeft(rover);
-turnLeft(rover);
-moveForward(rover);
-turnLeft(rover);
-turnLeft(rover);
-moveForward(rover);
+function pilotRover(str) {
+    str.split("").map((command) => { 
+        switch (command) {
+            case "l":
+                turnLeft(rover);
+                break;
+            case "r":
+                turnRight(rover);
+                break;
+            case "f":
+                moveForward(rover);
+                break;
+        };
+    })
+}
 
-
+pilotRover("rff");
 
 // turnRight(rover);
 // moveForward(rover);
@@ -89,3 +100,4 @@ moveForward(rover);
 grid[rover.x][rover.y] = rover.direction;
 
 console.table(grid);
+console.table(rover.travelLog)
