@@ -58,18 +58,20 @@ function turnRight(rover) {
 
 function moveForward(rover) {
     rover.travelLog.push({y: rover.y, x: rover.x});
+    // clear the trace from previous tour
+    grid[rover.y][rover.x] = ' ';
     switch (rover.direction) {
         case "N":
-            rover.x -= 1;
+            rover.y -= 1;
             break;
         case "S":
-            rover.x += 1;
-            break;
-        case "E":
             rover.y += 1;
             break;
+        case "E":
+            rover.x += 1;
+            break;
         case "W":
-            rover.y -= 1;
+            rover.x -= 1;
             break;
     }
     console.log(`y: ${rover.y}, x: ${rover.x}`);
@@ -92,26 +94,21 @@ function pilotRover(str) {
 }
 
 function play() {
-    prompt.get(
-        {name: 'command', description: "Entry command"},
-        function (err, res) {
+    prompt.get({
+        name: "command", 
+        description: "Enter a command",
+        pattern: /^[lrf]+$/,
+        message: "Rover only understands following commands: 'l\[left\]', 'r\[ight\]', 'f\[orward\]'"},
+        function(err, res) {
             if (err) {
-                return console.log("Something went wrong");
+                console.log(err);
+                return 1;
             }
-            pilotR
-        }
-    )
+            pilotRover(res.command);
+            grid[rover.y][rover.x] = rover.direction;
+            console.table(grid);
+            play();
+        });
 }
 
-pilotRover("rff");
-
-// turnRight(rover);
-// moveForward(rover);
-// turnLeft(rover);
-// turnLeft(rover);
-// moveForward(rover);
-
-grid[rover.x][rover.y] = rover.direction;
-
-console.table(grid);
-console.table(rover.travelLog)
+play();
