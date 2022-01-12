@@ -1,5 +1,7 @@
 const prompt = require("prompt");
 
+prompt.start();
+
 const grid = [
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -87,6 +89,18 @@ function pilotRover(str) {
                 break;
         };
     })
+}
+
+function play() {
+    prompt.get(
+        {name: 'command', description: "Entry command"},
+        function (err, res) {
+            if (err) {
+                return console.log("Something went wrong");
+            }
+            pilotR
+        }
+    )
 }
 
 pilotRover("rff");
