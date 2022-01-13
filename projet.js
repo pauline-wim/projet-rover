@@ -4,6 +4,7 @@ const prompt = require("prompt");
 prompt.start();
 
 let timeIsOver = false;
+let timer;
 
 let grid = [
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -171,7 +172,6 @@ axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then(function (res) {
     });
 
     randomPokemon = pokemons[Math.floor(Math.random() * ((100 - 1) + 1))];
-    // randomPokemon = pokemons[0][2];
 
     // console.log(randomPokemon);
 
