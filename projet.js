@@ -26,6 +26,8 @@ const rover = {
     travelLog: [],
 }
 
+// MOVING FUNCTIONS - start here
+
 function turnLeft(rover) {
     switch (rover.direction) {
         case "N":
@@ -163,51 +165,63 @@ function pilotRover(str) {
         };
     })
 }
+
+// MOVING FUNCTIONS - end here
+
 let randomPokemon;
 let pokemonGrid = [];
 
-axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then(function (res) {
+// fetching pokemons from API:
+axios.get('https://pokeapi.co/api/v2/pokemo/?limit=100/').then((res) => {
     let pokemons = res.data.results.map((pokemon) => {
         return pokemon.name;
     });
 
     randomPokemon = pokemons[Math.floor(Math.random() * ((100 - 1) + 1))];
 
-    // console.log(randomPokemon);
-
+    // making a grid containing all downloaded pokemons:
     for (let i = 0; i <= 9; i++) {
         pokemonGrid[i] = [];
         for (let j = 0; j <= 9; j++) {
             pokemonGrid[i][j] = pokemons.pop();
-            // pokemonGrid[i].push(pokemons.pop());fun
         }
     };
 
+    // other option for pokemon grid:
     // grid = grid.map((row) => {
     //     return row.map((box) => {
-    //         // console.log(pokemons[i]);
     //         return box = pokemons.pop();
-    //         // return box = "a";
     //         });
     //     });
     // console.table(pokemonGrid);
 
+    // setting duration of game:
     timer = setTimeout(() => {
         timeIsOver = true;
     }, 30000);
 
+    // starting game !
     play();
+
+}).catch ((err) => {
+    return console.log(err);
 });
 
+// Before we start - while API is downmoading:
 console.log("Chargement en cours...");
 
+
+// GAME FUNCTION - start here
 grid[rover.y][rover.x] = rover.direction;
 console.table(grid);
 
 function play() {
+    // Directions before the game starts:
     console.log("GET READY TO MOVE YOUR ROVER. (command q to quit play)");
     console.log("Find the correct pokemon to win.");
+    // Pokemon in first box of grid is displayed
     console.log(`Pokemon hidden in box: ${pokemonGrid[rover.y][rover.x]}`);
+    // PROMPT to start asking the player for command lines
     prompt.get({
         name: "command", 
         description: "Enter a command",
@@ -221,14 +235,16 @@ function play() {
             if (res.command === "q") {
                 return;
             };
+            // Check if the game time is expired:
             if (timeIsOver) {
                 console.log("Time is over! You lost!");
                 return console.log("GAME OVER");
             }
-            // console.log("\nPokemon hidden in box:", pokemonGrid[rover.y][rover.x]);
+            // Moving rover with functions created earlier:
             pilotRover(res.command);
             grid[rover.y][rover.x] = rover.direction;
             console.table(grid);
+            // Checking if we found randomPokemon and clear TimeOut if found:
             if (pokemonGrid[rover.y][rover.x] === randomPokemon) {
                 clearTimeout(timer);
                 return console.log(`BRAVO! You found ${randomPokemon}.`);
@@ -237,5 +253,3 @@ function play() {
             };
         });
 };
-
-// play();
