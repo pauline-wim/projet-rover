@@ -160,30 +160,47 @@ function pilotRover(str) {
         };
     })
 }
-
-let pokemons = [];
+let randomPokemon;
+let pokemonGrid = [];
 
 axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then(function (res) {
-    pokemons = res.data.results.map((pokemon) => {
+    let pokemons = res.data.results.map((pokemon) => {
         return pokemon.name;
     });
-    grid = grid.map((row) => {
-        return row.map((box) => {
-            // console.log(pokemons[i]);
-            // return box = pokemons.pop();
-            return box = "a";
-            });
-        });
-    console.table(grid);
+
+    randomPokemon = pokemons[Math.floor(Math.random() * ((100 - 1) + 1))];
+
+    // console.log(randomPokemon);
+
+    for (let i = 0; i <= 9; i++) {
+        pokemonGrid[i] = [];
+        for (let j = 0; j <= 9; j++) {
+            pokemonGrid[i][j] = pokemons.pop();
+            // pokemonGrid[i].push(pokemons.pop());
+        }
+    };
+
+    // grid = grid.map((row) => {
+    //     return row.map((box) => {
+    //         // console.log(pokemons[i]);
+    //         return box = pokemons.pop();
+    //         // return box = "a";
+    //         });
+    //     });
+    // console.table(pokemonGrid);
+    play();
+
 });
 
 console.log("Chargement en cours...");
 
-// grid[rover.y][rover.x] = rover.direction;
-// console.table(grid);
+grid[rover.y][rover.x] = rover.direction;
+console.table(grid);
 
 function play() {
     console.log("GET READY TO MOVE YOUR ROVER. (command q to quit play)");
+    console.log("Find the correct pokemon to win.");
+    console.log(`Pokemon hidden in box: ${pokemonGrid[rover.y][rover.x]}`);
     prompt.get({
         name: "command", 
         description: "Enter a command",
@@ -197,10 +214,15 @@ function play() {
             if (res.command === "q") {
                 return;
             };
+            // console.log("\nPokemon hidden in box:", pokemonGrid[rover.y][rover.x]);
             pilotRover(res.command);
             grid[rover.y][rover.x] = rover.direction;
             console.table(grid);
-            play();
+            if (pokemonGrid[rover.y][rover.x] === randomPokemon) {
+                return console.log(`BRAVO! You found ${randomPokemon}`);
+            } else {
+                play();
+            };
         });
 }
 
