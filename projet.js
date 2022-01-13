@@ -24,7 +24,7 @@ const rover = {
     x: 0,
     y: 0,
     travelLog: [],
-}
+};
 
 // MOVING FUNCTIONS - start here
 
@@ -42,8 +42,8 @@ function turnLeft(rover) {
         case "W":
             rover.direction = "S";
             break;   
-    }
-}
+    };
+};
 
 function turnRight(rover) {
     switch (rover.direction) {
@@ -59,8 +59,8 @@ function turnRight(rover) {
         case "W":
             rover.direction = "N";
             break;   
-    }
-}
+    };
+};
 
 function moveForward(rover) {
     rover.travelLog.push({y: rover.y, x: rover.x});
@@ -72,32 +72,32 @@ function moveForward(rover) {
                 rover.y -= 1;   
             } else {
                 console.log("Error, you can't go this way.");
-            }
+            };
             break;
         case "S":
             if (rover.y + 1 <= 9) {
                 rover.y += 1;
             } else {
                 console.log("Error, you can't go this way.");
-            }
+            };
             break;
         case "E":
             if (rover.x + 1 <= 9) {
                 rover.x += 1;
             } else {
                 console.log("Error, you can't go this way.");
-            }
+            };
             break;
         case "W":
             if (rover.x - 1 >= 0) {
                 rover.x -= 1;
             } else {
                 console.log("Error, you can't go this way.");
-            }
+            };
             break;
-    }
+    };
     console.log(`y: ${rover.y}, x: ${rover.x}`);
-}
+};
 
 // function moveBackward(rover) {
 //     rover.travelLog.push({y: rover.y, x: rover.x});
@@ -132,14 +132,14 @@ function moveForward(rover) {
 //                 console.log("Error, you can't go this way.");
 //             }
 //             break;
-//     }
+//     };
 //     console.log(`y: ${rover.y}, x: ${rover.x}`);
-// }
+// };
 
 function turn180(rover) {
     turnLeft(rover);
     turnLeft(rover);
-}
+};
 
 function moveBackward(rover) {
     turn180(rover);
@@ -163,8 +163,8 @@ function pilotRover(str) {
                 moveBackward(rover);
                 break;
         };
-    })
-}
+    });
+};
 
 // MOVING FUNCTIONS - end here
 
@@ -184,7 +184,7 @@ axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then((res) => {
         pokemonGrid[i] = [];
         for (let j = 0; j <= 9; j++) {
             pokemonGrid[i][j] = pokemons.pop();
-        }
+        };
     };
 
     // other option for pokemon grid:
