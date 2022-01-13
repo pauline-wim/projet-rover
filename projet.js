@@ -3,6 +3,8 @@ const prompt = require("prompt");
 
 prompt.start();
 
+let timeIsOver = false;
+
 let grid = [
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -169,6 +171,7 @@ axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then(function (res) {
     });
 
     randomPokemon = pokemons[Math.floor(Math.random() * ((100 - 1) + 1))];
+    // randomPokemon = pokemons[0][2];
 
     // console.log(randomPokemon);
 
@@ -176,7 +179,7 @@ axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then(function (res) {
         pokemonGrid[i] = [];
         for (let j = 0; j <= 9; j++) {
             pokemonGrid[i][j] = pokemons.pop();
-            // pokemonGrid[i].push(pokemons.pop());
+            // pokemonGrid[i].push(pokemons.pop());fun
         }
     };
 
@@ -188,8 +191,12 @@ axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then(function (res) {
     //         });
     //     });
     // console.table(pokemonGrid);
-    play();
 
+    timer = setTimeout(() => {
+        timeIsOver = true;
+    }, 30000);
+
+    play();
 });
 
 console.log("Chargement en cours...");
@@ -214,16 +221,21 @@ function play() {
             if (res.command === "q") {
                 return;
             };
+            if (timeIsOver) {
+                console.log("Time is over! You lost!");
+                return console.log("GAME OVER");
+            }
             // console.log("\nPokemon hidden in box:", pokemonGrid[rover.y][rover.x]);
             pilotRover(res.command);
             grid[rover.y][rover.x] = rover.direction;
             console.table(grid);
             if (pokemonGrid[rover.y][rover.x] === randomPokemon) {
-                return console.log(`BRAVO! You found ${randomPokemon}`);
+                clearTimeout(timer);
+                return console.log(`BRAVO! You found ${randomPokemon}.`);
             } else {
                 play();
             };
         });
-}
+};
 
 // play();
