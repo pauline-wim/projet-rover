@@ -172,7 +172,7 @@ let randomPokemon;
 let pokemonGrid = [];
 
 // fetching pokemons from API:
-axios.get('https://pokeapi.co/api/v2/pokemo/?limit=100/').then((res) => {
+axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then((res) => {
     let pokemons = res.data.results.map((pokemon) => {
         return pokemon.name;
     });
@@ -233,6 +233,7 @@ function play() {
                 return 1;
             };
             if (res.command === "q") {
+                clearTimeout(timer);
                 return;
             };
             // Check if the game time is expired:
