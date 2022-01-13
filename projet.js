@@ -207,7 +207,7 @@ axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then((res) => {
     return console.log(err);
 });
 
-// Before we start - while API is downmoading:
+// Before we start - while API is downloading:
 console.log("Chargement en cours...");
 
 
@@ -218,8 +218,8 @@ console.table(grid);
 function play() {
     // Directions before the game starts:
     console.log("GET READY TO MOVE YOUR ROVER. (command q to quit play)");
-    console.log("Find the correct pokemon to win.");
-    // Pokemon in first box of grid is displayed
+    console.log(`Find the pokemon ${randomPokemon} to win.`);
+    // Pokemon in first box of grid is displayed:
     console.log(`Pokemon hidden in box: ${pokemonGrid[rover.y][rover.x]}`);
     // PROMPT to start asking the player for command lines
     prompt.get({
