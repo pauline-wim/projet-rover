@@ -1,8 +1,9 @@
+const axios = require("axios");
 const prompt = require("prompt");
 
 prompt.start();
 
-const grid = [
+let grid = [
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -160,8 +161,26 @@ function pilotRover(str) {
     })
 }
 
-grid[rover.y][rover.x] = rover.direction;
+let pokemons = [];
+
+axios.get('https://pokeapi.co/api/v2/pokemon/?limit=100/').then(function (res) {
+    pokemons = res.data.results.map((pokemon) => {
+        return pokemon.name;
+    });
+    grid = grid.map((row) => {
+        return row.map((box) => {
+            // console.log(pokemons[i]);
+            // return box = pokemons.pop();
+            return box = "a";
+            });
+        });
     console.table(grid);
+});
+
+console.log("Chargement en cours...");
+
+// grid[rover.y][rover.x] = rover.direction;
+// console.table(grid);
 
 function play() {
     console.log("GET READY TO MOVE YOUR ROVER. (command q to quit play)");
@@ -185,4 +204,4 @@ function play() {
         });
 }
 
-play();
+// play();
