@@ -160,8 +160,11 @@ function pilotRover(str) {
     })
 }
 
+grid[rover.y][rover.x] = rover.direction;
+    console.table(grid);
+
 function play() {
-    console.log("GET READY TO MOVE YOUR ROVER. (command q to quit play)")
+    console.log("GET READY TO MOVE YOUR ROVER. (command q to quit play)");
     prompt.get({
         name: "command", 
         description: "Enter a command",
@@ -171,10 +174,10 @@ function play() {
             if (err) {
                 console.log(err);
                 return 1;
-            }
+            };
             if (res.command === "q") {
                 return;
-            }
+            };
             pilotRover(res.command);
             grid[rover.y][rover.x] = rover.direction;
             console.table(grid);
