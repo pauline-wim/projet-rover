@@ -77,6 +77,7 @@ par un espace et écrire la lettre de sa direction à la nouvelle position / rem
 Afficher la grille au début du programme, puis l'afficher de nouveau après chaque appel de `pilotRover`. 
 Exemple : notre rover est en 0 / 0 et direction "N" : la console devrait afficher 
 
+```
 [
 	["N", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -89,6 +90,7 @@ Exemple : notre rover est en 0 / 0 et direction "N" : la console devrait affiche
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
 ]
+```
 
 ## ⭐⭐ Bonus
 
