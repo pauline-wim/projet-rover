@@ -62,16 +62,32 @@ function moveForward(rover) {
     grid[rover.y][rover.x] = ' ';
     switch (rover.direction) {
         case "N":
-            rover.y -= 1;
+            if (rover.y - 1 >= 0) {
+                rover.y -= 1;   
+            } else {
+                console.log("Error, you can't go this way.");
+            }
             break;
         case "S":
-            rover.y += 1;
+            if (rover.y + 1 <= 9) {
+                rover.y += 1;
+            } else {
+                console.log("Error, you can't go this way.");
+            }
             break;
         case "E":
-            rover.x += 1;
+            if (rover.x + 1 <= 9) {
+                rover.x += 1;
+            } else {
+                console.log("Error, you can't go this way.");
+            }
             break;
         case "W":
-            rover.x -= 1;
+            if (rover.x - 1 >= 0) {
+                rover.x -= 1;
+            } else {
+                console.log("Error, you can't go this way.");
+            }
             break;
     }
     console.log(`y: ${rover.y}, x: ${rover.x}`);
